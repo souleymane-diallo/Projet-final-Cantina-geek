@@ -1,24 +1,33 @@
-import logo from './logo.svg';
-import './App.css';
+import React from 'react';
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import Header from './components/Header.jsx/Header';
+import Hero from './components/Hero/Hero';
+import AddRecipe from './pages/AddRecipe';
+import DetailsRecipes from './pages/DetailsRecipes';
+import EditRecipe from './pages/EditRecipe';
+import ListRecipes from './pages/ListRecipes';
 
 function App() {
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Router>
+      <Header />
+      <Switch>
+      <Route exact path="/">
+        <Hero />
+        <ListRecipes />
+      </Route>
+      <Route path="/recipe/:id">
+        <DetailsRecipes />
+      </Route>
+      <Route path="/addrecipe">
+        <AddRecipe />
+      </Route>
+      <Route path="/edit/:id">
+        <EditRecipe />
+      </Route>
+      </Switch>
+    </Router>
   );
 }
 
