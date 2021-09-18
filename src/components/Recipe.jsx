@@ -2,83 +2,99 @@ import React from 'react'
 import {
     Box, FormControl, FormLabel, Input,
     Stack,
-    Select,
-    Button,
-    Textarea,
-    useColorModeValue,
+    Button, Flex,
+    Textarea, Select
   } from '@chakra-ui/react';
 
-const Recipe = ({ recipe }) => {
+const Recipe = ({handleForm, submitRecipe, addChamps, removeFormFields, onValidateForm}) => {
     return (
         <Box
           rounded={'lg'}
-          bg={useColorModeValue('white', 'gray.700')}
           boxShadow={'lg'}
-          p={8}
+          p={10}
+          mt={12}
         >
-          
-          {recipe &&
-            <>
-            <Stack direction="row" spacing={4} mt={4}>
-            <FormControl>
+            <FormControl isRequired onChange={handleForm}>
               <FormLabel>Titre</FormLabel>
-              <Input type="text" value={recipe.titre} />
-            </FormControl>
-            <FormControl>
+              <Input type="text" id="titre" />
               <FormLabel>Description</FormLabel>
-              <Input type="text" value={recipe.description} />
-            </FormControl>
-          </Stack>
-          <Stack direction="row" spacing={4} mt={4}>
-            <FormControl>
+              <Textarea id="description" />
+            <Stack spacing={4} mt={4}>
               <FormLabel>Personne</FormLabel>
-              <Input type="number" value={recipe.personnes} />
-            </FormControl>
-            <FormControl>
+              <Input type="number" id="personnes" />
               <FormLabel>Niveau</FormLabel>
-              <Input type="text" value={recipe.niveau} />
-            </FormControl>
-            <FormControl>
+              <Select id="niveau">
+                <option value="padawan">padawan</option>
+                <option value="jedi">jedi</option>
+                <option value="maitre">maitre</option>
+              </Select>
               <FormLabel>Temps préparation</FormLabel>
-              <Input type="number" value={recipe.tempsPreparation} />
-            </FormControl>
+              <Input type="number" id="tempsPreparation" />
           </Stack>
-        <Stack direction="row" spacing={4} mt={4}>
-            <FormLabel>Ingredients</FormLabel>
-            <FormControl>
-              <Input type="number" />
-            </FormControl>
-            <FormControl>
-            <Select>
-                <option value="cm">cm</option>
-                <option value="cm">mg</option>
-                <option value="cm">kg</option>
-            </Select>
-            </FormControl>
-            <FormControl>
+            <FormLabel>Image</FormLabel>
               <Input type="text" />
+            <FormControl id="ingredients">
+              <FormLabel>Ingredients</FormLabel>
+              {submitRecipe.ingredients.map((value, index) => (
+                <Stack direction="row" spacing={4} mt={4} key={index}>
+                  <Input type="text" id="quantite" onChange={(e) => handleForm(e, index, value)} />
+                  <Input type="text" id="ingredient" onChange={(e) => handleForm(e, index, value)}  />
+                  <Button 
+                    bg={'red.400'} 
+                    color={'white'}
+                    _hover={{ bg: 'red.500'}}
+                    onClick={() => removeFormFields('ingrédient', index)}
+                  >
+                    X
+                  </Button>
+                </Stack>
+              ))}
             </FormControl>
-        </Stack>
-        <Stack direction="row" spacing={4} mt={4}>
-            <FormControl id="password">
+            <Button
+              my={3}
+              bg={'blue.400'}
+              _hover={{ bg: 'blue.500'}} 
+              color={'white'}
+              onClick={() => addChamps('ingrédient')}
+            >
+            Ajouter un ingrédient</Button>
+            <FormControl id="etapes">
               <FormLabel>Etages</FormLabel>
-              <Textarea value={recipe.etapes} />
+                {submitRecipe.etapes.map((value, index) => (
+                  <Stack direction="row" key={index} mt={2}>
+                    <Textarea id="etape" onChange={(e) => handleForm(e, value, index)} />
+                      <Button bg={'red.400'} 
+                        _hover={{ bg: 'red.500'}}
+                        color={'white'}
+                        onClick={() => removeFormFields('étape', index)}
+                        >
+                          X
+                        </Button>
+                    </Stack>
+                ))}
             </FormControl>
-        </Stack>
-        </> 
-        }
-            <Stack mt={5}>
-              <Button
-                bg={'blue.400'}
-                color={'white'}
-                _hover={{
-                  bg: 'blue.500',
-                }}>
-                Ajouter
-              </Button>
-            </Stack>
-        </Box>
-    )
+            <Button
+              my={3}
+              bg={'blue.400'} 
+              color={'white'}
+              _hover={{ bg: 'blue.500'}}
+              onClick={() => addChamps('étape')}
+            >
+            Ajouter une étape</Button>
+          <Flex justifyContent="center">
+            <Button
+              onClick={onValidateForm}
+              mt={4}
+              justifyContent="center"
+              bg={'green.400'}
+              color={'white'}
+              _hover={{ bg: 'green.500'}}>
+              Ajouter Recette
+            </Button>
+          </Flex>
+      </FormControl>
+    </Box>
+  )
 }
 
 export default Recipe

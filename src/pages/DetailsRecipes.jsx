@@ -1,63 +1,53 @@
-import React, { useState, useEffect} from 'react';
+import React from 'react';
+import { Link, useHistory } from 'react-router-dom'
 import { Flex, Box, chakra, Image, Button, Stack, List, ListItem, ListIcon} from '@chakra-ui/react';
-import {FaRegEdit} from 'react-icons/fa';
-import {RiDeleteBin6Line} from 'react-icons/ri'
+import {AiFillDelete, AiFillEdit} from 'react-icons/ai'
 import {GiCookingPot, GiCheckMark} from 'react-icons/gi'
 import{ useParams } from 'react-router-dom';
-import axios from 'axios';
 import Loader from '../utils/Loader';
-
-const client = axios.create({
-    baseURL: `http://localhost:9000/api`
-});
+import axios from 'axios';
+import { useFetch } from '../utils/hooks/useFetch';
 
 const DetailsRecipes = () => {
+    const history = useHistory()
     const params = useParams();
     const id = params.id;
-    const [recipe, setRecipe] = useState(null);
-    const [error, setError] = useState(false);
-    const [loading, setLoading] = useState(true);
-
-    useEffect(() =>{
-        async function getRecipe() {
-            setLoading(true);
-            try {
-                const response = await client.get(`/recipe/${id}`)
-                setRecipe(response.data);
-            }
-            catch (err) {
-                setError(true);
-                console.log(err.errorMessage)
-            }
-            finally {
-                setLoading(false);
-            }
-        }
-        getRecipe();
-
-    }, [id]);
-
+    const { data, error, isLoading } = useFetch(`http://localhost:9000/api/recipe/${id}`);    
+    const recipe = data;
+    
     if (error) {
-        return <span>il y a un problème</span>
+      return  <span>{error}</span>
     }
-
+    const onDeleteRecipe = (id) => {
+        axios.delete(`http://localhost:9000/api/recipe/${id}`)
+        .then(resul => {
+            alert(resul.data.message)
+            history.push('/')
+        })
+        .catch((e) => {
+           alert(e); 
+        })
+    }
     return (
             <>
-            {loading ? (
+            {isLoading ? (
                 <Loader />
             ) : ( recipe &&
                 <Flex
                     p={20}
+                    key={recipe.id}
                     w="full"
                     alignItems="center"
-                    justifyContent="center"
+                    justifyContent="center"    
                 >
                     <Box
                         mx="auto"
                         rounded="lg"
                         shadow="md"
                         maxW="2xl"
+                        mt={14}
                     >
+
                         <Image
                         roundedTop="lg"
                         w="full"
@@ -99,7 +89,7 @@ const DetailsRecipes = () => {
                     </chakra.h3>
         
                     <List spacing={3}>
-                        {recipe.ingredients.map(ingredient => 
+                        {recipe.ingredients?.map(ingredient => 
                         <ListItem>
                         <ListIcon as={GiCookingPot} color="green.200" />
                             {ingredient.slice(0,1)+ " "+ingredient.slice(1)}
@@ -119,10 +109,21 @@ const DetailsRecipes = () => {
                     </List>
                     
                     <Stack direction="row" justifyContent="space-around" mt={3} >
-                        <Button leftIcon={<FaRegEdit />} colorScheme="pink" variant="outline">
-                            Edit
+                        <Button leftIcon={<AiFillEdit />} colorScheme="blue" variant="outline">
+                        <Link to={`edit/${recipe.id}`}>Edit</Link>
                         </Button>
-                        <Button rightIcon={<RiDeleteBin6Line />} colorScheme="blue" variant="outline">
+                        <Button 
+                            onClick={() =>{
+                                const confirBox = window.confirm(
+                                    `voulez-vous supprimer cette recette ${recipe.titre}`
+                                )
+                                if (confirBox === true) {
+                                    onDeleteRecipe(recipe.id)
+                                }  
+                            }}
+                            rightIcon={<AiFillDelete />} 
+                            colorScheme="red" variant="outline"
+                        >
                             Delete
                         </Button>
                     </Stack>
