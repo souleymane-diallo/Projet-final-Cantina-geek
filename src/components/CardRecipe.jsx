@@ -1,10 +1,9 @@
 import React from 'react';
 import { Link } from 'react-router-dom'
 import {Flex, Box, Image, useColorModeValue, chakra, Stack, Button} from "@chakra-ui/react"
-import {FaRegEdit} from 'react-icons/fa';
-import {RiDeleteBin6Line} from 'react-icons/ri'
+import {AiFillDelete, AiFillEdit} from 'react-icons/ai'
 import {GiClick} from 'react-icons/gi'
-const CardRecipe = ({ recipes }) => {
+const CardRecipe = ({ recipes, onDeleteRecipe }) => {
     return (
         <Flex
             bg={useColorModeValue("#F9FAFB", "gray.600")}
@@ -14,7 +13,7 @@ const CardRecipe = ({ recipes }) => {
             justifyContent="center"
             flexWrap="wrap"
         >
-            {recipes && recipes.map(recipe => 
+            {recipes?.map(recipe => 
             <Box 
                 key={recipe.id}
                 w="sm"
@@ -29,8 +28,8 @@ const CardRecipe = ({ recipes }) => {
                     h={56}
                     fit="cover"
                     objectPosition="center"
-                    src={recipe.photo}
-                    alt={recipe.titre}
+                    src={recipe?.photo}
+                    alt={recipe?.titre}
                 />
                 <Box py={4} px={6}>
                  <chakra.h2 
@@ -44,10 +43,21 @@ const CardRecipe = ({ recipes }) => {
                     <chakra.span fontSize="lg">Temps : {recipe.tempsPreparation} min</chakra.span>
                     <chakra.span fontSize="lg">{recipe.personnes} personne{recipe.personnes > 1 && 's'} </chakra.span>
                     <Stack direction="row" justifyContent="space-around" my={3}>
-                        <Button leftIcon={<FaRegEdit />} colorScheme="pink" variant="outline">
+                        <Button leftIcon={<AiFillEdit />} colorScheme="blue" variant="outline">
                            <Link to={`edit/${recipe.id}`}>Edit</Link> 
                         </Button>
-                        <Button rightIcon={<RiDeleteBin6Line />} colorScheme="blue" variant="outline">
+                        <Button 
+                            onClick={() =>{
+                                const confirBox = window.confirm(
+                                    `voulez-vous supprimer cette recette ${recipe.titre}`
+                                )
+                                if (confirBox === true) {
+                                    onDeleteRecipe(recipe.id)
+                                }  
+                            }}
+                            rightIcon={<AiFillDelete />} 
+                            colorScheme="red" variant="outline"
+                        >
                             Delete
                         </Button>
                     </Stack>
