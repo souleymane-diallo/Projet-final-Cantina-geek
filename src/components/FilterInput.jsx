@@ -38,10 +38,10 @@ const FilterInput = ({onTitreFilter, onNiveauFilter}) => {
     console.log(inputFilter);
     switch (field) {
       case "titre":
-        onTitreFilter(value)
+        onTitreFilter(value);
       break;
       case "niveau":
-        onNiveauFilter(value)
+        onNiveauFilter(value);
       break;
       default:
         break;

@@ -35,7 +35,7 @@ const Recipe = ({handleForm, submitRecipe, addChamps, removeFormFields, onValida
               <Input type="text" />
             <FormControl id="ingredients">
               <FormLabel>Ingredients</FormLabel>
-              {submitRecipe.ingredients.map((value, index) => (
+              {submitRecipe.ingredients?.map((value, index) => (
                 <Stack direction="row" spacing={4} mt={4} key={index}>
                   <Input type="text" id="quantite" onChange={(e) => handleForm(e, index, value)} />
                   <Input type="text" id="ingredient" onChange={(e) => handleForm(e, index, value)}  />
@@ -60,7 +60,7 @@ const Recipe = ({handleForm, submitRecipe, addChamps, removeFormFields, onValida
             Ajouter un ingrédient</Button>
             <FormControl id="etapes">
               <FormLabel>Etages</FormLabel>
-                {submitRecipe.etapes.map((value, index) => (
+                {submitRecipe.etapes?.map((value, index) => (
                   <Stack direction="row" key={index} mt={2}>
                     <Textarea id="etape" onChange={(e) => handleForm(e, value, index)} />
                       <Button bg={'red.400'} 

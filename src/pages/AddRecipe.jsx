@@ -26,7 +26,6 @@ const AddRecipe = () => {
   const [submitRecipe, setSubmitRecipe] = useState(data);
   const history = useHistory();
   const handleForm = (e, index = null, value = null) => {
-    console.log(e.target.value);
     if (e.target.id === "personnes" || e.target.id === "tempsPreparation") {
       setSubmitRecipe({
         ...submitRecipe,
@@ -113,6 +112,7 @@ const AddRecipe = () => {
         },
         (error) => {
           setError(error);
+          console.log(error)
           alert(error);
         }
       );
