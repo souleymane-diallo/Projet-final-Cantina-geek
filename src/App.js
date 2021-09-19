@@ -3,12 +3,13 @@ import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import Header from './components/Header.jsx/Header';
 import Hero from './components/Hero/Hero';
 import AddRecipe from './pages/AddRecipe';
+import './index.css'
 import DetailsRecipes from './pages/DetailsRecipes';
 import EditRecipe from './pages/EditRecipe';
 import ListRecipes from './pages/ListRecipes';
 
 function App() {
-
+  
   return (
     <Router>
       <Header />

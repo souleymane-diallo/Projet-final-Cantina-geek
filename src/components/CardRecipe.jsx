@@ -13,7 +13,7 @@ const CardRecipe = ({ recipes, onDeleteRecipe }) => {
             justifyContent="center"
             flexWrap="wrap"
         >
-            {recipes?.map(recipe => 
+            {recipes?.map(recipe => (
             <Box 
                 key={recipe.id}
                 w="sm"
@@ -55,7 +55,7 @@ const CardRecipe = ({ recipes, onDeleteRecipe }) => {
                                     onDeleteRecipe(recipe.id)
                                 }  
                             }}
-                            rightIcon={<AiFillDelete />} 
+                            leftIcon={<AiFillDelete />} 
                             colorScheme="red" variant="outline"
                         >
                             Delete
@@ -70,7 +70,7 @@ const CardRecipe = ({ recipes, onDeleteRecipe }) => {
                     </Stack>
                 </Flex>
                 </Box>
-            </Box>)}
+            </Box>))}
         </Flex>
     )
 }

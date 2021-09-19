@@ -1,0 +1,33 @@
+body{
+    font-family: 'Source Sans Pro', sans-serif;
+    font-size: 16px;
+}
+.logo{
+    font-family: 'Fredericka the Great', cursive;
+    font-size: 26px;
+    font-weight: 600;
+    color: #9F5C5A;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+
+}
+.navLink{
+    font-size: 17px;
+    font-weight: 600;
+    text-transform: uppercase;
+    color: #9F5C5A;;
+}
+.hiroTitle{
+    font-weight: 700;
+    text-transform: capitalize;
+    font-size: 3rem;
+    letter-spacing: 7px;
+    color: #ffffff;
+}
+.subTitle{
+    font-size: 1.3rem;
+    font-weight: 600;
+    font-style: italic;
+    text-transform: capitalize;
+    color: #ffffff;
+}
