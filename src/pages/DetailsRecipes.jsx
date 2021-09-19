@@ -100,7 +100,7 @@ const DetailsRecipes = () => {
                         ETAPES :
                     </chakra.h3>
                     <List spacing={3}>
-                        {recipe.etapes.map(etape => 
+                        {recipe.etapes?.map(etape => 
                         <ListItem>
                         <ListIcon as={GiCheckMark} color="green.200" />
                             {etape}
@@ -110,7 +110,7 @@ const DetailsRecipes = () => {
                     
                     <Stack direction="row" justifyContent="space-around" mt={3} >
                         <Button leftIcon={<AiFillEdit />} colorScheme="blue" variant="outline">
-                        <Link to={`edit/${recipe.id}`}>Edit</Link>
+                        <Link to={`../edit/${recipe.id}`}>Edit</Link>
                         </Button>
                         <Button 
                             onClick={() =>{
