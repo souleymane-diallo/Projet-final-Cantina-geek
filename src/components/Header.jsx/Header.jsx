@@ -25,27 +25,26 @@ const Header = () => {
     return (
         <React.Fragment>
             <chakra.header
-                bg={bg}
-                w="full"
-                px={{ base: 2, sm: 4 }}
-                py={4}
-                shadow="md"
+              bg={bg}
+              w="full"
+              px={{ base: 2, sm: 4 }}
+              py={4}
+              shadow="md"
             >
-        <Flex alignItems="center" justifyContent="space-between" mx="auto">
-          <Flex>
+            <Flex alignItems="center" justifyContent="space-between" mx="auto">
+            <Flex>
             <chakra.a
               href="/"
-              title="Choc Home Page"
               display="flex"
               alignItems="center"
             >
-              <VisuallyHidden>Cantine Geek</VisuallyHidden>
+              <VisuallyHidden>Cantina Geek</VisuallyHidden>
             </chakra.a>
-            <HStack spacing={3}>
+            <HStack>
                 <Image src={logo} boxSize="50px" />
-                <chakra.h1 fontSize="xl" fontWeight="medium" ml="3">
-                    Cantine Geek
-                </chakra.h1>
+                <h1 className="logo">
+                  Cantina Geek
+                </h1>
             </HStack>
           </Flex>
           <HStack display="flex" alignItems="center" spacing={1}>
@@ -55,11 +54,12 @@ const Header = () => {
               color="brand.500"
               display={{ base: "none", md: "inline-flex" }}
             >
-              <Button variant="ghost">Home</Button>
               <Button variant="ghost">
-                <Link to="/addrecipe">Ajouter recette</Link>
+                <Link to="/" className="navLink">Accueil</Link>  
               </Button>
-              <Button variant="ghost">Modifier</Button>
+              <Button variant="ghost">
+                <Link to="/addrecipe" className="navLink">Ajouter une Recette</Link>
+              </Button>
             </HStack>
 
             <Box display={{ base: "inline-flex", md: "none" }}>
@@ -82,7 +82,7 @@ const Header = () => {
                 flexDirection="column"
                 p={2}
                 pb={4}
-                m={2}
+                m={8}
                 bg={bg}
                 spacing={3}
                 rounded="sm"
@@ -94,14 +94,11 @@ const Header = () => {
                 />
 
                 <Button w="full" variant="ghost">
-                  Home
+                  <Link to="/" className="navLink">Accueil</Link>  
                 </Button>
 
                 <Button w="full" variant="ghost">
-                  Ajouter une recette
-                </Button>
-                <Button w="full" variant="ghost">
-                  Modifier
+                 <Link to="/addrecipe" className="navLink">Ajouter une recette</Link> 
                 </Button>
               </VStack>
             </Box>
