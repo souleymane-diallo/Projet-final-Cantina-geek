@@ -14,9 +14,9 @@ import {
 } from "@chakra-ui/react"
 const searchFilter = {
   titre:'',
-  personnes: 1,
+  personnes: 0,
   niveau:'',
-  tempsPreparation: 5
+  tempsPreparation: 0
 }
 const FilterInput = ({onTitreFilter, onNiveauFilter}) => {
   const [inputFilter, setInputFilter] = React.useState(searchFilter);

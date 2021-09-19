@@ -29,19 +29,19 @@ const ListRecipes = () => {
   const handleFilterTitre = (titre) => {
     const filteredData = recipes.filter((item) => {
       if(item.titre.toLowerCase().includes(titre.toLowerCase())){
-        return item;
+        return item
       }
     })
-    setRecipes(filteredData);
+    // setRecipes(filteredData)
     console.log(filteredData)
   }
   const handleFilterNiveau = (niveau) => {
     const filteredData = recipes.filter((item) => {
       if(item.niveau.toLowerCase().includes(niveau.toLowerCase())){
         return item;
-      }
+      } 
     });
-    setRecipes(filteredData);
+    
     console.log(filteredData);
   }
   const onDeleteRecipe = (id) => {
