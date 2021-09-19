@@ -1,12 +1,12 @@
 import React from 'react';
-import {Flex, Stack, Box, Heading, chakra } from '@chakra-ui/react'
+import {Flex, Stack, Box } from '@chakra-ui/react'
 
 const Hero = () => {
     return (
         <Box
         w="full"
-        h="60"
-        backgroundImage="url(https://images.unsplash.com/photo-1547592180-85f173990554?ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTF8fGNvb2tpbmd8ZW58MHx8MHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60)"
+        h="80"
+        backgroundImage="url(https://images.unsplash.com/photo-1518291344630-4857135fb581?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80)"
         bgPos="center"
         bgSize="cover"
       >
@@ -16,24 +16,13 @@ const Hero = () => {
           justify="center"
           boxSize="full"
         >
-          <Stack textAlign="center" alignItems="center" spacing={6}>
-            <Heading
-              fontSize={["2xl","3xl"]}
-              fontWeight="semibold"
-              color="white"
-              textTransform="uppercase"
-            >
-              Build Your new{" "}
-              <chakra.span color="blue.400" textDecor="underline">
-                Saas
-              </chakra.span>
-            </Heading>
-            <chakra.p
-              w="fit-content"
-              color="white"
-            >
-              Start project
-            </chakra.p>
+          <Stack textAlign="center" alignItems="center" spacing={2}>
+            <h2 className="hiroTitle">
+              Bienvenue à Cantina Geek
+            </h2>
+            <p className="subTitle">
+              une application de recettes de cuisine pour les padawan en cuisine
+            </p>
           </Stack>
         </Flex>
       </Box>
