@@ -7,6 +7,7 @@ import {
     useColorModeValue,
   } from '@chakra-ui/react';
 import Recipe from '../components/Recipe';
+// import FormEdit from '../components/FormEdit';
 
 const data = {
   titre: "",
@@ -132,6 +133,13 @@ const AddRecipe = () => {
         removeFormFields={removeFormFields}
         onValidateForm={onValidateForm}
       />
+      {/* <FormEdit 
+        handleForm={handleForm} 
+        addChamps={addChamps}
+        onValidateForm={onValidateForm}
+        removeFormFields={removeFormFields}
+        submitRecipe={submitRecipe}
+      /> */}
     </Stack>
   </Flex>
   )
