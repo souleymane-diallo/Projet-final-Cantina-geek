@@ -11,20 +11,19 @@ const FilterInput = ({ handleForm, searchTerm }) => {
   
   return (
     <>
-     
       <Box 
         shadow="lg"
         rounded="lg"
         p={4} px={3}
         overflow="hidden"
       >
-        <FormControl  onChange={handleForm}>
+        <FormControl onChange={handleForm}>
         <Box 
           shadow="lg"
           rounded="lg"
           p={4} px={3}
           overflow="hidden">
-        <Grid autoRows templateColumns="repeat(5, 250px)" gap={3}>
+        <Grid autoRows templateColumns="repeat(3, 250px)" gap={3}>
         <GridItem >
           <FormLabel>Titre</FormLabel>
             <Input type="text" id="titre" /> 

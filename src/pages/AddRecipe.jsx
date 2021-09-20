@@ -5,8 +5,8 @@ import {
     Stack,
     Heading,
   } from '@chakra-ui/react';
-import Recipe from '../components/Recipe';
-// import FormEdit from '../components/FormEdit';
+import { useToast } from "@chakra-ui/react"
+import FormEdit from '../components/FormEdit';
 
 const data = {
   titre: "",
@@ -20,7 +20,7 @@ const data = {
 };
 
 const AddRecipe = () => {
-
+  const toast = useToast()
   const [error, setError] = useState(false); 
   const [submitRecipe, setSubmitRecipe] = useState(data);
   const history = useHistory();
@@ -106,12 +106,19 @@ const AddRecipe = () => {
         (result) => {
           if(result.message) {
             history.push('/')
+          } else {
+            //alert(result.errorMessage)
+            toast({
+              title: "Message Erreur",
+              description: (result.errorMessage),
+              status: "error",
+              duration: 800,
+              isClosable: true,
+            })
           }
         },
         (error) => {
-          setError(error);
-          console.log(error)
-          alert(error);
+          setError(error)
         }
       );
   }
@@ -128,19 +135,13 @@ const AddRecipe = () => {
       <Stack align={'center'}>
       <Heading fontSize={'4xl'}>Ajouter une recette</Heading>
       </Stack>
-      <Recipe handleForm={handleForm}
-        submitRecipe={submitRecipe}
-        addChamps={addChamps}
-        removeFormFields={removeFormFields}
-        onValidateForm={onValidateForm}
-      />
-      {/* <FormEdit 
+      <FormEdit 
         handleForm={handleForm} 
         addChamps={addChamps}
         onValidateForm={onValidateForm}
         removeFormFields={removeFormFields}
         submitRecipe={submitRecipe}
-      /> */}
+      />
     </Stack>
   </Flex>
   )

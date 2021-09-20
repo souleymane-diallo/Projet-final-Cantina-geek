@@ -10,12 +10,11 @@ import {
   } from "@chakra-ui/react"
   import {AiFillDelete} from 'react-icons/ai'
 
-const ConfirmDelete = ({onDeleteRecipe, recipe}) => {
+const ConfirmDelete = ({onDeleteRecipe, onId}) => {
     const [isOpen, setIsOpen] = React.useState(false)
     const onClose = () => setIsOpen(false)
     const cancelRef = React.useRef()
-    const deleteRef = React.useRef();
-    console.log(deleteRef.current);
+    const id = onId;
     return (
         <>
         <Button leftIcon={<AiFillDelete />} 
@@ -31,18 +30,18 @@ const ConfirmDelete = ({onDeleteRecipe, recipe}) => {
           <AlertDialogOverlay>
             <AlertDialogContent>
               <AlertDialogHeader fontSize="lg" fontWeight="bold">
-                Delete Customer
+                Supprission
               </AlertDialogHeader>
               <AlertDialogBody>
-                Are you sure? You can't undo this action afterwards.
+                Voulez-vous vraiment Supprimer cette recette ?
               </AlertDialogBody>
   
               <AlertDialogFooter>
                 <Button ref={cancelRef} onClick={onClose}>
-                  Cancel
+                  Non
                 </Button>
-                <Button colorScheme="red" ref={deleteRef} ml={3}>
-                  Delete
+                <Button colorScheme="red" onClick={() => onDeleteRecipe(true, id)} ml={3}>
+                  Oui
                 </Button>
               </AlertDialogFooter>
             </AlertDialogContent>

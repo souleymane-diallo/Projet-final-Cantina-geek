@@ -36,7 +36,7 @@ function FormEdit({handleForm, submitRecipe, addChamps, removeFormFields, onVali
           </Stack>
             <FormLabel>Image</FormLabel>
               <Input type="text" />
-              <FormControl id="ingredients">
+              <FormControl isRequired id="ingredients">
               <FormLabel>Ingredients</FormLabel>
               {submitRecipe.ingredients?.map((value, index) => (
                 <Stack direction="row" spacing={4} mt={4} key={index} >
@@ -61,7 +61,7 @@ function FormEdit({handleForm, submitRecipe, addChamps, removeFormFields, onVali
               onClick={() => addChamps('ingrédient')}
             >
             Ajouter un ingrédient</Button>
-            <FormControl id="etapes">
+            <FormControl isRequired id="etapes">
               <FormLabel>Etages</FormLabel>
                 {submitRecipe.etapes && submitRecipe.etapes.map((value, index) => (
                   <Stack direction="row"  mt={2} key={index}>

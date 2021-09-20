@@ -18,6 +18,7 @@ const ListRecipes = () => {
   const [error, setError] = useState(false);
   const [searchTerm, setSearchTerm] = useState(searchFilter);
   const [searchResults, setSearchResults] = useState(null);
+  const [btnSup, setBtnSup] = useState(false);
 
   async function getRecipes() {
     setLoading(true);
@@ -26,7 +27,6 @@ const ListRecipes = () => {
       setRecipes(response.data)
       setSearchResults(response.data);
     } catch (error) {
-      console.log(error)
       setError(true);
     } finally {
       setLoading(false);
@@ -38,7 +38,7 @@ const ListRecipes = () => {
   }, []);
   
   const handleForm = (e) => {
-    if (e.target.id === "tempsPreparation" || e.target.id === "personnes") {
+    if (e.target.id === "temps_preparation" || e.target.id === "personnes_min" || e.target.id  === "personnes_max")  {
       setSearchTerm({
         ...searchTerm,
         [e.target.id]: Number(e.target.value),
@@ -49,21 +49,16 @@ const ListRecipes = () => {
         [e.target.id]: e.target.value,
       });
     }
-    console.log('capturer',searchTerm)
   }
   
   useEffect(() => {
     if (recipes !== null) {
-      console.log(recipes, "recette");
-      console.log(searchResults, "searchRecette");
     const search = recipes.filter(recipe => functionTri(recipe));
-      console.log(searchResults, "final");
       setSearchResults(search);
     }
   }, [searchTerm]);
 
   useEffect(() => {
-    //GET
     getRecipes();
   }, []);
 
@@ -82,15 +77,17 @@ const ListRecipes = () => {
       return false;
   }
 
-  const onDeleteRecipe = (id) => {
-    axios.delete(`http://localhost:9000/api/recipe/${id}`)
-    .then(resul => {
-      alert(resul.data.message)
-      getRecipes();  
-    })
-    .catch((e) => {
-        alert(e); 
-    })
+  const onDeleteRecipe = (btnSup, id) => {
+    if(btnSup === true) {
+      axios.delete(`http://localhost:9000/api/recipe/${id}`)
+      .then(resul => {
+        setBtnSup(false);
+        getRecipes();  
+      },
+      (error) =>{
+        setError(error)
+      })
+    }  
   }
   
   if (error) {

@@ -1,9 +1,11 @@
 import React from 'react';
 import { Link } from 'react-router-dom'
 import {Flex, Box, Image, useColorModeValue, chakra, Stack, Button} from "@chakra-ui/react"
-import {AiFillDelete, AiFillEdit} from 'react-icons/ai'
+import {AiFillEdit} from 'react-icons/ai'
 import {GiClick} from 'react-icons/gi'
+import ConfirmDelete from './ConfirmDelete';
 const CardRecipe = ({ recipes, onDeleteRecipe }) => {
+   
     return (
         <Flex
             bg={useColorModeValue("#F9FAFB", "gray.600")}
@@ -46,20 +48,7 @@ const CardRecipe = ({ recipes, onDeleteRecipe }) => {
                         <Button leftIcon={<AiFillEdit />} colorScheme="blue" variant="outline">
                            <Link to={`edit/${recipe.id}`}>Modifier</Link> 
                         </Button>
-                        <Button 
-                            onClick={() =>{
-                                const confirBox = window.confirm(
-                                    `voulez-vous supprimer cette recette ${recipe.titre}`
-                                )
-                                if (confirBox === true) {
-                                    onDeleteRecipe(recipe.id)
-                                }  
-                            }}
-                            leftIcon={<AiFillDelete />} 
-                            colorScheme="red" variant="outline"
-                        >
-                            Supprimer
-                        </Button>
+                        <ConfirmDelete onDeleteRecipe={onDeleteRecipe} onId={recipe.id}/>
                     </Stack>
                     <Stack direction="row" spacing={4}>
                         <Link to={`recipe/${recipe.id}`} >

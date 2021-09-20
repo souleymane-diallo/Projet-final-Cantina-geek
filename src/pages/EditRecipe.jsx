@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useHistory } from "react-router-dom";
+import { useToast } from "@chakra-ui/react"
 import {
     Flex,
     Stack,
@@ -8,10 +9,12 @@ import {
 import FormEdit from '../components/FormEdit';
 
 const EditRecipe = () => {
+   const toast = useToast()
     const params = useParams();
     const id = params.id; 
     const history = useHistory();
     const [submitRecipe, setSubmitRecipe] = useState(null);
+    const [error, setError] = useState(false);
 
     useEffect(() => {
         fetch(`http://localhost:9000/api/recipe/${id}`)
@@ -48,24 +51,24 @@ const EditRecipe = () => {
         }
     };
 
-    const addChamps = (option) => {
-        if (option === "ingrédient") {
-          const recipe = submitRecipe.ingredients;
-        recipe.push(["",""]);
-        setSubmitRecipe({
-          ...submitRecipe,
-          [submitRecipe.ingredients]: recipe,
-        });
-        
-        } else if (option === "étape") {
-          const recipe = submitRecipe.etapes;
-        recipe.push("");
-        setSubmitRecipe({
-          ...submitRecipe,
-          [submitRecipe.etapes]: recipe,
-        });
-        }
-    };
+  const addChamps = (option) => {
+    if (option === "ingrédient") {
+      const recipe = submitRecipe.ingredients;
+    recipe.push(["",""]);
+    setSubmitRecipe({
+      ...submitRecipe,
+      [submitRecipe.ingredients]: recipe,
+    });
+    
+    } else if (option === "étape") {
+      const recipe = submitRecipe.etapes;
+    recipe.push("");
+    setSubmitRecipe({
+      ...submitRecipe,
+      [submitRecipe.etapes]: recipe,
+    });
+    }
+  };
 
     const removeFormFields = (option, i) => {
         if (option === "ingrédient") {
@@ -101,33 +104,40 @@ const EditRecipe = () => {
             setSubmitRecipe(result);
             if(result.message) {
                 history.push('/')
+            } else {
+              toast({
+                title: "Message Erreur",
+                description: (result.errorMessage),
+                status: "error",
+                duration: 800,
+                isClosable: true,
+              })
             }
         },
         (error) => {
-        //   setError(error);
-        console.log(error);
+        setError(error);
         }
         );
-    }
-
+  }
+  
   return (
-      <Flex
-          minH={'100vh'}
-          justify={'center'}
-      >
-          <Stack spacing={5} mx={'auto'} minW={'60%'} py={4} px={3}>
-              <Stack align={'center'}>
-              <Heading fontSize={'4xl'}>Modifier une recette</Heading>
-              </Stack>
-              <FormEdit 
-                  handleForm={handleForm} 
-                  addChamps={addChamps}
-                  onValidateForm={onValidateForm}
-                  removeFormFields={removeFormFields}
-                  submitRecipe={submitRecipe}
-              />
+    <Flex
+      minH={'100vh'}
+      justify={'center'}
+    >
+      <Stack spacing={5} mx={'auto'} minW={'60%'} py={4} px={3}>
+          <Stack align={'center'}>
+          <Heading fontSize={'4xl'}>Modifier une recette</Heading>
           </Stack>
-      </Flex>
+          <FormEdit 
+            handleForm={handleForm} 
+            addChamps={addChamps}
+            onValidateForm={onValidateForm}
+            removeFormFields={removeFormFields}
+            submitRecipe={submitRecipe}
+          />
+      </Stack>
+    </Flex>
   )
 }
 
