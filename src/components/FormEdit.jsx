@@ -8,6 +8,7 @@ import {
   } from '@chakra-ui/react';
 
 function FormEdit({handleForm, submitRecipe, addChamps, removeFormFields, onValidateForm}) {
+
   return (
     <Box
       rounded={'lg'}
@@ -37,10 +38,10 @@ function FormEdit({handleForm, submitRecipe, addChamps, removeFormFields, onVali
               <Input type="text" />
               <FormControl id="ingredients">
               <FormLabel>Ingredients</FormLabel>
-              {submitRecipe.ingredients && submitRecipe.ingredients.map((value, index) => (
+              {submitRecipe.ingredients?.map((value, index) => (
                 <Stack direction="row" spacing={4} mt={4} key={index} >
-                  <Input type="text" value={value[0]} id="quantite" onChange={(e) => handleForm(e, value, index)} />
-                  <Input type="text" value={value[1]} id="ingredient" onChange={(e) => handleForm(e, value, index)}  />
+                  <Input type="text" value={value[0]} id="quantite" onChange={(e) => handleForm(e, index, value)} />
+                  <Input type="text" value={value[1]} id="ingredient" onChange={(e) => handleForm(e, index, value)} />
                   <Button 
                     bg={'red.400'} 
                     color={'white'}
@@ -64,7 +65,7 @@ function FormEdit({handleForm, submitRecipe, addChamps, removeFormFields, onVali
               <FormLabel>Etages</FormLabel>
                 {submitRecipe.etapes && submitRecipe.etapes.map((value, index) => (
                   <Stack direction="row"  mt={2} key={index}>
-                    <Textarea id="etape" value={value} onChange={(e) => handleForm(e, value, index)} />
+                    <Textarea id="etape" value={value} onChange={(e) => handleForm(e, index, value)} />
                       <Button bg={'red.400'} 
                         _hover={{ bg: 'red.500'}}
                         color={'white'}

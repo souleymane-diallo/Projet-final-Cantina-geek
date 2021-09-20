@@ -18,7 +18,6 @@ const EditRecipe = () => {
           .then((res) => res.json())
           .then((recipes) => {
             setSubmitRecipe(recipes);
-            console.log("de",recipes);
           });
     },[id]);
 
@@ -52,11 +51,12 @@ const EditRecipe = () => {
     const addChamps = (option) => {
         if (option === "ingrédient") {
           const recipe = submitRecipe.ingredients;
-        recipe.push(["", ""]);
+        recipe.push(["",""]);
         setSubmitRecipe({
           ...submitRecipe,
           [submitRecipe.ingredients]: recipe,
         });
+        
         } else if (option === "étape") {
           const recipe = submitRecipe.etapes;
         recipe.push("");
@@ -101,7 +101,6 @@ const EditRecipe = () => {
             setSubmitRecipe(result);
             if(result.message) {
                 history.push('/')
-                alert(result.message)
             }
         },
         (error) => {
@@ -116,7 +115,7 @@ const EditRecipe = () => {
           minH={'100vh'}
           justify={'center'}
       >
-          <Stack spacing={5} mx={'auto'} maxW={'xl'} py={4} px={3}>
+          <Stack spacing={5} mx={'auto'} minW={'60%'} py={4} px={3}>
               <Stack align={'center'}>
               <Heading fontSize={'4xl'}>Modifier une recette</Heading>
               </Stack>

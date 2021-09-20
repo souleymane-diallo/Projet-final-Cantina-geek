@@ -53,8 +53,8 @@ const DetailsRecipes = () => {
                         w="full"
                         h={80}
                         fit="cover"
-                        src={recipe.photo}
-                        alt={recipe.titre}
+                        src={recipe?.photo}
+                        alt={recipe?.titre}
                         />
 
                     <Box p={6}>
@@ -70,17 +70,17 @@ const DetailsRecipes = () => {
                     mt={2}
                     fontSize="sm"
                     >
-                    {recipe.description}
+                    {recipe?.description}
                     </chakra.p>
                     <Stack direction="row" justifyContent="space-around" mt={3}>
                         <chakra.span>
-                            Niveau : {recipe.niveau}
+                            Niveau : {recipe?.niveau}
                         </chakra.span>
                         <chakra.span>
-                            Temps : {recipe.tempsPreparation} min
+                            Temps : {recipe?.tempsPreparation} min
                         </chakra.span>
                         <chakra.span>
-                            {recipe.personnes}{' '} personne{recipe.personnes > 0 && 's'}
+                            {recipe?.personnes}{' '} personne{recipe?.personnes > 0 && 's'}
                         </chakra.span>
                     </Stack>
                     
@@ -110,7 +110,7 @@ const DetailsRecipes = () => {
                     
                     <Stack direction="row" justifyContent="space-around" mt={3} >
                         <Button leftIcon={<AiFillEdit />} colorScheme="blue" variant="outline">
-                        <Link to={`../edit/${recipe.id}`}>Edit</Link>
+                        <Link to={`../edit/${recipe.id}`}>Modifier</Link>
                         </Button>
                         <Button 
                             onClick={() =>{
@@ -124,7 +124,7 @@ const DetailsRecipes = () => {
                             rightIcon={<AiFillDelete />} 
                             colorScheme="red" variant="outline"
                         >
-                            Delete
+                            Supprimer
                         </Button>
                     </Stack>
                 </Box>

@@ -41,11 +41,7 @@ const ConfirmDelete = ({onDeleteRecipe, recipe}) => {
                 <Button ref={cancelRef} onClick={onClose}>
                   Cancel
                 </Button>
-                <Button colorScheme="red" ref={deleteRef} onClick={() =>{
-                    if(deleteRef.current) {
-                        onDeleteRecipe()
-                    }
-                } } ml={3}>
+                <Button colorScheme="red" ref={deleteRef} ml={3}>
                   Delete
                 </Button>
               </AlertDialogFooter>

@@ -62,7 +62,7 @@ const Recipe = ({handleForm, submitRecipe, addChamps, removeFormFields, onValida
               <FormLabel>Etages</FormLabel>
                 {submitRecipe.etapes?.map((value, index) => (
                   <Stack direction="row" key={index} mt={2}>
-                    <Textarea id="etape" onChange={(e) => handleForm(e, value, index)} />
+                    <Textarea id="etape" onChange={(e) => handleForm(e, index, value)} />
                       <Button bg={'red.400'} 
                         _hover={{ bg: 'red.500'}}
                         color={'white'}

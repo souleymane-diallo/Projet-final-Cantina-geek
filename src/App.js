@@ -7,6 +7,7 @@ import './index.css'
 import DetailsRecipes from './pages/DetailsRecipes';
 import EditRecipe from './pages/EditRecipe';
 import ListRecipes from './pages/ListRecipes';
+import ErrorPage from './pages/ErrorPage';
 
 function App() {
   
@@ -14,19 +15,22 @@ function App() {
     <Router>
       <Header />
       <Switch>
-      <Route exact path="/">
-        <Hero />
-        <ListRecipes />
-      </Route>
-      <Route path="/recipe/:id">
-        <DetailsRecipes />
-      </Route>
-      <Route path="/addrecipe">
-        <AddRecipe />
-      </Route>
-      <Route path="/edit/:id">
-        <EditRecipe />
-      </Route>
+        <Route exact path="/">
+          <Hero />
+          <ListRecipes />
+        </Route>
+        <Route path="/recipe/:id">
+          <DetailsRecipes />
+        </Route>
+        <Route path="/addrecipe">
+          <AddRecipe />
+        </Route>
+        <Route path="/edit/:id">
+          <EditRecipe />
+        </Route>
+        <Route path="*">
+          <ErrorPage />
+        </Route>
       </Switch>
     </Router>
   );

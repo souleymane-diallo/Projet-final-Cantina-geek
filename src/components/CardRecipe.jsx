@@ -42,9 +42,9 @@ const CardRecipe = ({ recipes, onDeleteRecipe }) => {
                     <chakra.span fontSize="lg">Niveau : {recipe.niveau}</chakra.span>
                     <chakra.span fontSize="lg">Temps : {recipe.tempsPreparation} min</chakra.span>
                     <chakra.span fontSize="lg">{recipe.personnes} personne{recipe.personnes > 1 && 's'} </chakra.span>
-                    <Stack direction="row" justifyContent="space-around" my={3}>
+                    <Stack direction="row" justifyContent="space-between" my={3}>
                         <Button leftIcon={<AiFillEdit />} colorScheme="blue" variant="outline">
-                           <Link to={`edit/${recipe.id}`}>Edit</Link> 
+                           <Link to={`edit/${recipe.id}`}>Modifier</Link> 
                         </Button>
                         <Button 
                             onClick={() =>{
@@ -58,13 +58,13 @@ const CardRecipe = ({ recipes, onDeleteRecipe }) => {
                             leftIcon={<AiFillDelete />} 
                             colorScheme="red" variant="outline"
                         >
-                            Delete
+                            Supprimer
                         </Button>
                     </Stack>
                     <Stack direction="row" spacing={4}>
                         <Link to={`recipe/${recipe.id}`} >
                             <Button leftIcon={<GiClick />} colorScheme="blue" variant="solid">
-                                Click Here...
+                                Voir plus...
                             </Button>
                         </Link>
                     </Stack>

@@ -4,16 +4,27 @@ import axios from 'axios';
 import FilterInput from '../components/FilterInput';
 import CardRecipe from '../components/CardRecipe';
 
+const searchFilter = {
+  titre:'',
+  personnes_min: 0,
+  personnes_max: 0,
+  niveau:'',
+  tempsPreparation: 0
+}
+
 const ListRecipes = () => {
   const [recipes, setRecipes] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
+  const [searchTerm, setSearchTerm] = useState(searchFilter);
+  const [searchResults, setSearchResults] = useState(null);
 
   async function getRecipes() {
     setLoading(true);
     try {
       const response = await axios.get(`http://localhost:9000/api/recipes`)
       setRecipes(response.data)
+      setSearchResults(response.data);
     } catch (error) {
       console.log(error)
       setError(true);
@@ -26,24 +37,51 @@ const ListRecipes = () => {
       getRecipes();
   }, []);
   
-  const handleFilterTitre = (titre) => {
-    const filteredData = recipes.filter((item) => {
-      if(item.titre.toLowerCase().includes(titre.toLowerCase())){
-        return item
+  const handleForm = (e) => {
+    if (e.target.id === "tempsPreparation" || e.target.id === "personnes") {
+      setSearchTerm({
+        ...searchTerm,
+        [e.target.id]: Number(e.target.value),
+      });
+    } else {
+      setSearchTerm({
+        ...searchTerm,
+        [e.target.id]: e.target.value,
+      });
+    }
+    console.log('capturer',searchTerm)
+  }
+  
+  useEffect(() => {
+    if (recipes !== null) {
+      console.log(recipes, "recette");
+      console.log(searchResults, "searchRecette");
+    const search = recipes.filter(recipe => functionTri(recipe));
+      console.log(searchResults, "final");
+      setSearchResults(search);
+    }
+  }, [searchTerm]);
+
+  useEffect(() => {
+    //GET
+    getRecipes();
+  }, []);
+
+  const functionTri = (recipes = null) => {
+    if (recipes.titre.toLowerCase().includes(searchTerm.titre.toLowerCase()) || searchTerm.titre === "") {
+      if (recipes.tempsPreparation >= searchTerm.tempsPreparation || searchTerm.tempsPreparation === 0) {
+          if (recipes.niveau === searchTerm.niveau || searchTerm.niveau === "") {
+            if (recipes.personnes >= searchTerm.personnes_min || searchTerm.personnes_min === 0) {
+              if (recipes.personnes <= searchTerm.personnes_max || searchTerm.personnes_max === 0) {
+                return true;
+              }
+            }
+          }
+        }
       }
-    })
-    // setRecipes(filteredData)
-    console.log(filteredData)
+      return false;
   }
-  const handleFilterNiveau = (niveau) => {
-    const filteredData = recipes.filter((item) => {
-      if(item.niveau.toLowerCase().includes(niveau.toLowerCase())){
-        return item;
-      } 
-    });
-    
-    console.log(filteredData);
-  }
+
   const onDeleteRecipe = (id) => {
     axios.delete(`http://localhost:9000/api/recipe/${id}`)
     .then(resul => {
@@ -61,14 +99,11 @@ const ListRecipes = () => {
 
   return (
     <>
-      <FilterInput 
-        onTitreFilter={handleFilterTitre} 
-        onNiveauFilter={handleFilterNiveau}
-      />
+      <FilterInput handleForm={handleForm} searchTerm={searchTerm} />
         {loading ? (
         <Loader />
       ): (
-        <CardRecipe recipes={recipes} onDeleteRecipe={onDeleteRecipe} />
+        <CardRecipe recipes={searchResults}  onDeleteRecipe={onDeleteRecipe} />
       )}
     </>  
 )}
